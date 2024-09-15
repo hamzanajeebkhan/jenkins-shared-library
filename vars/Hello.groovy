@@ -18,6 +18,12 @@ pipeline {
                 sh "hostname"
             }
         }
+
+        stage('Shared Library work') {
+            steps {
+                echo 'This is coming from Shared Library'
+            }
+        }
     }
 }
 }
