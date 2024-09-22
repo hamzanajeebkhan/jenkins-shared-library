@@ -9,10 +9,14 @@ pipeline {
         IMAGE_TAG = "2.0.0"
     }
 
+    parameters {
+        string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Branch of Petclinic Repository')
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                checkout scmGit(branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hamzanajeebkhan/kube-petclinc-app.git']])
+                checkout scmGit(branches: [[name: "$params.BRANCH_NAME"]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/hamzanajeebkhan/kube-petclinc-app.git']])
             }
         }
 
@@ -25,6 +29,7 @@ pipeline {
         }
         
         stage('Build and Push Docker Image') {
+        when { expression { params.BRANCH_NAME == 'main'} }
             steps {
                 sh '''
                     curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-27.1.2.tgz;
@@ -39,6 +44,7 @@ pipeline {
         }
 
         stage('Downstream CD pipeline') {
+         when { expression { params.BRANCH_NAME == 'main'} }
             steps {
                 build job: 'Petclinic-CD', parameters: [string(name: 'IMAGE_NAME', value: 'my-first-maven-app'), string(name: 'CONTAINER_NAME', value: 'petclinic')]
             }
