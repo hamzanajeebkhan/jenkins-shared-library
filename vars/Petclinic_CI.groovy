@@ -2,7 +2,9 @@
 def call() {
 
 pipeline {
-    agent { label "maven"}
+    agent {
+        docker { image "maven:3.8.4-openjdk-17" }
+    }
 
     environment {
         DOCKER_HUB_REPO = "techiescamp/jenkins-java-app"
