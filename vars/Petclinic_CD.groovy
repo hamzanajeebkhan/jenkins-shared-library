@@ -23,8 +23,8 @@ def call() {
         stage('Deployment') {
             steps {
                 sh """
-                    docker rm -f $param.CONTAINER_NAME 2> /dev/null;
-                    docker run -d -p 80:8080 --name $param.CONTAINER_NAME $param.IMAGE_NAME
+                    docker rm -f $params.CONTAINER_NAME 2> /dev/null;
+                    docker run -d -p 80:8080 --name $params.CONTAINER_NAME $param.IMAGE_NAME
                 """
             }
         }
