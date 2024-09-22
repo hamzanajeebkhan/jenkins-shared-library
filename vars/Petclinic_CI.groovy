@@ -37,6 +37,12 @@ pipeline {
                 '''
             }
         }
+
+        stage('Downstream CD pipeline') {
+            steps {
+                build job: 'Petclinic-CD', parameters: [string(name: 'IMAGE_NAME', value: 'my-first-maven-app'), string(name: 'CONTAINER_NAME', value: 'petclinic')]
+            }
+        }
         
     }
 }
