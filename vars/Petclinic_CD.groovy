@@ -24,7 +24,7 @@ def call() {
             steps {
                 sh """
                     docker rm -f $params.CONTAINER_NAME 2> /dev/null;
-                    docker run -d -p 80:8080 --name $params.CONTAINER_NAME $param.IMAGE_NAME
+                    docker run -d -p 80:8080 --name $params.CONTAINER_NAME $params.IMAGE_NAME
                 """
             }
         }
