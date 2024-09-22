@@ -3,8 +3,8 @@ def call() {
     agent { label "maven"}
 
     parameters {
-        stringParam('IMAGE_NAME', 'default', 'Add the name of image to deploy')
-        stringParam('CONTAINER_NAME', 'default', 'Name of container to be deployed')
+        string(name: 'IMAGE_NAME', defaultValue: 'default', description: 'Add the name of image to deploy')
+        string(name: 'CONTAINER_NAME', defaultValue: 'default', description: 'Name of container to be deployed')
     }
 
     stages {
