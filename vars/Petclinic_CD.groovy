@@ -28,7 +28,16 @@ def call() {
                 """
             }
         }
-        
+
+        stage('Show Credentials') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'vagrant-ssh', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                    echo "PASSWORD: $PASSWORD"
+                    echo "USERNAME: $USERNAME"
+                }
+                }
+            }
+        }
     }
 }
 }
